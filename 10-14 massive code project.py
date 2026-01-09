@@ -5,7 +5,7 @@ import json
 path = Path('user_dict.json')
 
 def user_and_info():
-
+    """User inputs name and info about themselves and gets saved on a json file"""
     try:
         read = path.read_text()
         users_dict = json.loads(read)
@@ -18,7 +18,7 @@ def user_and_info():
     while True:
         name = input("Type 'q' antime to quit\nWhat is your name? ").title()
 
-        if name == 'Q':
+        if name == 'Q': # changes for user exiting 
             print('\nGood day!')
             return None
 
@@ -36,7 +36,7 @@ def user_and_info():
                 while True:
                     again = input(f"\nare you sure you're {name}? Yes/No: ").lower()
 
-                    if again == 'q':
+                    if again == 'q': # changes for user exiting 
                         print('\nGood day!')
                         return None
 
@@ -95,7 +95,7 @@ def user_and_info():
         information = input(f'A litte information about yourself {name}: ')
         users_dict[name] = information
 
-        if information == 'q' or 'Q':
+        if information == 'q' or 'Q': # changes for user exiting 
                         print('\nGood day!')
                         return None
 
