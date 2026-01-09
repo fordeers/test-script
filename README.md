@@ -1,1 +1,1 @@
-learning and testing git for the firs time
+learning and testing git for the first time
