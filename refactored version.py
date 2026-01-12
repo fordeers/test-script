@@ -8,11 +8,11 @@ def json_try(path):
     try:
         read = path.read_text()
         users_dict = json.loads(read)
-        print('\nFile found\n')
+        print('\nFile found')
         return users_dict
 
     except(json.JSONDecodeError, FileNotFoundError):
-        print('\nFile not found... Creating a new one\n')
+        print('\nFile not found... Creating a new one')
         users_dict = {}
         return users_dict
 
