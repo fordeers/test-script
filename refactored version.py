@@ -18,9 +18,10 @@ def json_try(path):
 
 def asks_name():
     while True:    
-        name = input("\nType 'end' antime to quit\nWhat is your name? ").title()
+        name = input("\nType 'end' anytime to quit\nWhat is your name? ").title()
 
         if name == 'End': # changes for user exiting 
+            print('\nGood day!')
             return 'end'
 
         if not name.isalpha():
@@ -77,11 +78,11 @@ def saving_info(dict):
     path.write_text(json.dumps(dict))
     print('Current dictionary list:\n')
     for users, info in dict.items():
-        print(f'{users}: {info}')
+        print(f'\t{users}: {info}')
 
 def next_person():
     while True:
-            again = input('Would another person like to try? Yes/No: ').lower()
+            again = input('\nWould another person like to try? Yes/No: ').lower()
 
             if again == 'no':
                 print('\nGood day!')
@@ -96,11 +97,13 @@ def next_person():
 
 def get_info(name, dict):
     information = input(f'A litte information about yourself {name}: ')
-    dict[name] = information
 
     if information == 'end': # changes for user exiting 
         print('\nGood day!')
         return 'end'
+    
+    dict[name] = information
+    saving_info(dict)
 
 def user_and_info():
     """User inputs name and info about themselves and gets saved on a json file"""
@@ -111,12 +114,10 @@ def user_and_info():
         
         name = asks_name()
         if name == 'end':
-            print('\nGood day!')
             return None
 
         verify = verify_user(name, user_dict)
         if verify == 'end':
-            print('\nGood day!')
             return None
         
         if verify == 'relog':
@@ -126,12 +127,10 @@ def user_and_info():
         
         info = get_info(name, user_dict)
         if info == 'end':
-            print('\nGood day!')
             return None
 
         pass_along = next_person()
         if pass_along == 'end':
-            print('\nGood day!')
             saved_info = saving_info(user_dict)
             return saved_info   
              
