@@ -6,15 +6,15 @@ path = Path('user_dict.json')
 def user_and_info():
     """User inputs name and info about themselves and gets saved on a json file"""
     
-    user_dict = json_try(path)
+    user_dict = _json_try(path)
 
     while True:
         
-        name = asks_name()
+        name = _asks_name()
         if name == 'end':
             return None
 
-        verify = verify_user(name, user_dict)
+        verify = _verify_user(name, user_dict)
         if verify == 'end':
             return None
         
@@ -23,19 +23,19 @@ def user_and_info():
 
         print(f'Saving name, {name}')
         
-        info = get_info(name, user_dict)
+        info = _get_info(name, user_dict)
         if info == 'end':
             return None
 
-        pass_along = next_person()
+        pass_along = _next_person()
         if pass_along == 'end':
-            saved_info = saving_info(user_dict)
+            saved_info = _saving_info(user_dict)
             return saved_info   
              
         if pass_along == 'relog':
             continue
 
-def json_try(path):
+def _json_try(path):
     try:
         read = path.read_text()
         users_dict = json.loads(read)
@@ -47,7 +47,7 @@ def json_try(path):
         users_dict = {}
         return users_dict
 
-def asks_name():
+def _asks_name():
     while True:    
         name = input("\nType 'end' anytime to quit\nWhat is your name? ").title()
 
@@ -65,7 +65,7 @@ def asks_name():
         
         return name
             
-def verify_user(name, dict):
+def _verify_user(name, dict):
     if name in dict:
         while True:
             again = input(f"\nare you sure you're {name}? Yes/No: ").lower()
@@ -105,13 +105,13 @@ def verify_user(name, dict):
                 print('Yes or No only please')
                 continue
         
-def saving_info(dict):
+def _saving_info(dict):
     path.write_text(json.dumps(dict))
     print('Current dictionary list:\n')
     for users, info in dict.items():
         print(f'\t{users}: {info}')
 
-def next_person():
+def _next_person():
     while True:
             again = input('\nWould another person like to try? Yes/No: ').lower()
 
@@ -126,7 +126,7 @@ def next_person():
                 print('Yes or No only please')
                 continue
 
-def get_info(name, dict):
+def _get_info(name, dict):
     information = input(f'A litte information about yourself {name}: ')
 
     if information == 'end': # changes for user exiting 
@@ -134,6 +134,6 @@ def get_info(name, dict):
         return 'end'
     
     dict[name] = information
-    saving_info(dict)
+    _saving_info(dict)
 
 user_and_info()
