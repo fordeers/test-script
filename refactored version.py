@@ -1,8 +1,39 @@
 from pathlib import Path
 import json
 
-
 path = Path('user_dict.json')
+
+def user_and_info():
+    """User inputs name and info about themselves and gets saved on a json file"""
+    
+    user_dict = json_try(path)
+
+    while True:
+        
+        name = asks_name()
+        if name == 'end':
+            return None
+
+        verify = verify_user(name, user_dict)
+        if verify == 'end':
+            return None
+        
+        if verify == 'relog':
+            continue
+
+        print(f'Saving name, {name}')
+        
+        info = get_info(name, user_dict)
+        if info == 'end':
+            return None
+
+        pass_along = next_person()
+        if pass_along == 'end':
+            saved_info = saving_info(user_dict)
+            return saved_info   
+             
+        if pass_along == 'relog':
+            continue
 
 def json_try(path):
     try:
@@ -104,37 +135,5 @@ def get_info(name, dict):
     
     dict[name] = information
     saving_info(dict)
-
-def user_and_info():
-    """User inputs name and info about themselves and gets saved on a json file"""
-    
-    user_dict = json_try(path)
-
-    while True:
-        
-        name = asks_name()
-        if name == 'end':
-            return None
-
-        verify = verify_user(name, user_dict)
-        if verify == 'end':
-            return None
-        
-        if verify == 'relog':
-            continue
-
-        print(f'Saving name, {name}')
-        
-        info = get_info(name, user_dict)
-        if info == 'end':
-            return None
-
-        pass_along = next_person()
-        if pass_along == 'end':
-            saved_info = saving_info(user_dict)
-            return saved_info   
-             
-        if pass_along == 'relog':
-            continue
 
 user_and_info()
